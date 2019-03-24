@@ -31,7 +31,7 @@ message('Building compiler-rt for native architecture: ' + host_architecture)
 
 builtins_compiler_args = [
 	'-fpic',
-	'-fpie',
+	# '-fpie', # TODO: do we need this?
 	'-fno-builtin',
 	'-fvisibility=hidden',
 	'-fomit-frame-pointer',
