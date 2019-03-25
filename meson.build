@@ -30,7 +30,6 @@ message('Building compiler-rt for target architecture: ' + target_architecture)
 message('Building compiler-rt for native architecture: ' + host_architecture)
 
 builtins_compiler_args = [
-	'-fpic',
 	# '-fpie', # TODO: do we need this?
 	'-fno-builtin',
 	'-fvisibility=hidden',
@@ -497,12 +496,14 @@ compiler_rt_builtins = static_library('compiler_rt',
 	compiler_rt_target_files,
 	c_args: builtins_target_compiler_args,
 	cpp_args: builtins_target_compiler_args,
+	pic: true,
 )
 
 compiler_rt_native_builtins = static_library('compiler_rt_native',
 	compiler_rt_native_files,
 	c_args: builtins_native_compiler_args,
 	cpp_args: builtins_native_compiler_args,
+	pic: true,
 	native: true
 )
 
