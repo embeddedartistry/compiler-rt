@@ -27,7 +27,7 @@ skip_atomic_builtins = get_option('compiler-rt-exclude-atomic-builtins')
 subdir('build/architecture')
 
 message('Building compiler-rt for target architecture: ' + target_architecture)
-message('Building compiler-rt for native architecture: ' + host_architecture)
+message('Building compiler-rt for native architecture: ' + native_architecture)
 
 builtins_compiler_args = [
 	# '-fpie', # TODO: do we need this?
@@ -484,7 +484,7 @@ else
 	assert(0, 'Unsupported architecture: ' + target_architecture)
 endif
 
-if host_architecture == 'arm'
+if native_architecture == 'arm'
 	compiler_rt_native_files += [
 		arm_files,
 		generic_nonx86_64_sources
@@ -504,26 +504,26 @@ if host_architecture == 'arm'
 		compiler_rt_native_files + arm_vfp_double_precision_files
 	endif
 
-elif host_architecture == 'aarch64' or host_architecture == 'arm64'
+elif native_architecture == 'aarch64' or native_architecture == 'arm64'
 	compiler_rt_native_files += [
 		generic_tf_sources,
 		generic_nonx86_64_sources,
 		generic_nonarm_sources
 	]
-elif host_architecture == 'x86'
+elif native_architecture == 'x86'
 	compiler_rt_native_files += [
 		x86_files,
 		generic_nonx86_64_sources,
 		generic_nonarm_sources
 	]
-elif host_architecture == 'x86_64'
+elif native_architecture == 'x86_64'
 	compiler_rt_native_files += [
 		x86_files,
 		x86_64_files,
 		generic_nonarm_sources
 	]
 else
-	assert(0, 'Unsupported architecture: ' + host_architecture)
+	assert(0, 'Unsupported architecture: ' + native_architecture)
 endif
 
 #########################
