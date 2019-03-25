@@ -35,6 +35,24 @@ builtins_compiler_args = [
 	'-fvisibility=hidden',
 	'-fomit-frame-pointer',
 	'-ffreestanding',
+	# These are to suppress warnings when building compiler_rt with pedantic enabled
+	# TODO: remove these warnings and see if we can actually resolve some problems with compiler-rt
+	'-Wno-pedantic',
+	'-Wno-undef',
+	'-Wno-sign-conversion',
+	'-Wno-double-promotion',
+	'-Wno-shift-sign-overflow',
+	'-Wno-shorten-64-to-32',
+	'-Wno-float-equal',
+	'-Wno-float-conversion',
+	'-Wno-conversion',
+	'-Wno-missing-noreturn',
+	'-Wno-unused-parameter',
+	'-Wno-format-nonliteral',
+	'-Wno-unused-macros',
+	'-Wno-unreachable-code-break',
+	'-Wno-conditional-uninitialized',
+	'-Wno-missing-variable-declarations',
 ]
 
 builtins_target_compiler_args = [
@@ -51,6 +69,26 @@ if force_32_bit == true
 endif
 
 #TODO: if armhf is ever supported, define: COMPILER_RT_ARMHF_TARGET
+
+###################
+# Adjust Warnings #
+###################
+
+if target_compiler.has_argument('-Wno-reserved-id-macro')
+	builtins_target_compiler_args += '-Wno-reserved-id-macro'
+endif
+
+if native_compiler.has_argument('-Wno-reserved-id-macro')
+	builtins_native_compiler_args += '-Wno-reserved-id-macro'
+endif
+
+if target_compiler.has_argument('-Wno-missing-prototypes') and target_compiler.get_id() != 'gcc'
+	builtins_target_compiler_args += '-Wno-missing-prototypes'
+endif
+
+if native_compiler.has_argument('-Wno-missing-prototypes')  and native_compiler.get_id() != 'gcc'
+	builtins_native_compiler_args += '-Wno-missing-prototypes'
+endif
 
 ######################
 # Builtin File Lists #
