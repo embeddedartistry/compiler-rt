@@ -4,7 +4,7 @@ This project wraps the llvm compiler-rt repository and enables users to use it i
 
 Currently, this project is used to supply built-in functions for x86, x86_64, arm, and arm64 platforms.
 
-If you are interested in contributing to this project, please read the [`CONTRIBUTING` guide][10].
+If you are interested in contributing to this project, please read the [`CONTRIBUTING` guide](docs/CONTRIBUTING.md).
 
 ## Table of Contents
 
@@ -239,7 +239,7 @@ Provide links to other relevant documentation here
 
 This build project is licensed under the MIT license.
 
-Compiler-rt (and the llvm project in general) are released under [a modified Apache 2.0 license](compiler-rt/LICENSE.txt.
+Compiler-rt (and the llvm project in general) are released under [a modified Apache 2.0 license](compiler-rt/LICENSE.txt).
 
 ## Authors
 
