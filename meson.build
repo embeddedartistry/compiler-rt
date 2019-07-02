@@ -1,6 +1,13 @@
 project('compiler_rt',
 	['c', 'cpp'],
-	default_options : ['cpp_std=c++17'],)
+	default_options : [
+		# `build.*` options affect `native: true targets`
+		# plain options affect `native: false` targets.
+		'c_std=c11', 'build.c_std=c11',
+		'cpp_std=c++17', 'build.cpp_std=c++17',
+	],
+	license: 'MIT',
+	meson_version: '>0.51.0')
 
 build_type = get_option('buildtype')
 
