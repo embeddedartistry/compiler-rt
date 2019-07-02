@@ -23,7 +23,6 @@ target_compiler = meson.get_compiler('cpp')
 
 enable_werror = get_option('enable-werror')
 enable_pedantic_error = get_option('enable-pedantic-error')
-always_use_assert = get_option('always-enable-assert')
 force_32_bit = get_option('force-32-bit')
 skip_atomic_builtins = get_option('compiler-rt-exclude-atomic-builtins')
 
