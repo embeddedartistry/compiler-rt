@@ -15,6 +15,7 @@ If you are interested in contributing to this project, please read the [`CONTRIB
     1. [Getting the Source](#getting-the-source)
     1. [Building](#building)
     1. [Usage](#installation)
+1. [Configuration Options](#configuration-options)
 1. [Versioning](#versioning)
 1. [How to Get Help](#how-to-get-help)
 1. [Further Reading](#further-reading)
@@ -212,6 +213,29 @@ blinky_nrf52dk_platform_dep = declare_dependency(
     sources: files('platform.cpp'),
 )
 ```
+
+## Configuration Options
+
+The following meson project options can be set for this library when creating the build results directory with `meson`, or by using `meson configure`:
+
+* `enable-werror`: Cause the build to fail if warnings are present
+* `enable-pedantic-error`: Turn on `pedantic` warnings and errors
+* * `force-32-bit`: forces 32-bit compilation instead of 64-bit
+* `compiler-rt-exclude-atomic-builtins`: Excludes atomic builtin functions from the build
+
+Options can be specified using `-D` and the option name:
+
+```
+meson buildresults -Denable-werror=true
+```
+
+The same style works with `meson configure`:
+
+```
+cd buildresults
+meson configure -Denable-werror=true
+```
+
 
 ## Versioning
 
