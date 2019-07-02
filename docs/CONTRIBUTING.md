@@ -71,7 +71,6 @@ Working on your first open source project or pull request? Here are some helpful
 
 Install these dependencies:
 
-* [Doxygen](http://www.stack.nl/~dimitri/doxygen/) must be installed to generate documentation
 * [Meson](#meson-build-system) is the build system
 * [`git-lfs`](https://git-lfs.github.com) is used to store binary files
 * `make` is required to use Makefile shims
