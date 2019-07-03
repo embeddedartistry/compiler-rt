@@ -18,7 +18,6 @@ If you are interested in contributing to this project, please read the [`CONTRIB
 1. [Configuration Options](#configuration-options)
 1. [Versioning](#versioning)
 1. [How to Get Help](#how-to-get-help)
-1. [Further Reading](#further-reading)
 1. [Contributing](#contributing)
 1. [License](#license)
 1. [Authors](#authors)
@@ -220,7 +219,7 @@ The following meson project options can be set for this library when creating th
 
 * `enable-werror`: Cause the build to fail if warnings are present
 * `enable-pedantic-error`: Turn on `pedantic` warnings and errors
-* * `force-32-bit`: forces 32-bit compilation instead of 64-bit
+* `force-32-bit`: forces 32-bit compilation instead of 64-bit
 * `compiler-rt-exclude-atomic-builtins`: Excludes atomic builtin functions from the build
 
 Options can be specified using `-D` and the option name:
@@ -236,7 +235,6 @@ cd buildresults
 meson configure -Denable-werror=true
 ```
 
-
 ## Versioning
 
 This project itself is unversioned and simply pulls in the latest compiler-rt commits periodically.
@@ -250,12 +248,6 @@ Provide any instructions or contact information for users who need to get furthe
 Provide details about how people can contribute to your project. If you have a contributing guide, mention it here. e.g.:
 
 We encourage public contributions! Please review [CONTRIBUTING.md](docs/CONTRIBUTING.md) for details on our code of conduct and development process.
-
-**[Back to top](#table-of-contents)**
-
-## Further Reading
-
-Provide links to other relevant documentation here
 
 **[Back to top](#table-of-contents)**
 
