@@ -36,7 +36,6 @@ message('Building compiler-rt for target architecture: ' + target_architecture)
 message('Building compiler-rt for native architecture: ' + native_architecture)
 
 builtins_compiler_args = [
-	# '-fpie', # TODO: do we need this?
 	'-fno-builtin',
 	'-fvisibility=hidden',
 	'-fomit-frame-pointer',
@@ -418,7 +417,6 @@ apple_atomic_files = files(
 	'compiler-rt/lib/builtins/atomic_thread_fence.c',
 )
 
-#TODO: add with unwind.h support - probably need a path to unwind.h
 gcc_unwind_files = files(
 	'compiler-rt/lib/builtins/gcc_personality_v0.c',
 )
