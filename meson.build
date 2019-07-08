@@ -41,7 +41,6 @@ builtins_compiler_args = [
 	'-fomit-frame-pointer',
 	'-ffreestanding',
 	# These are to suppress warnings when building compiler_rt with pedantic enabled
-	# TODO: remove these warnings and see if we can actually resolve some problems with compiler-rt
 	'-Wno-pedantic',
 	'-Wno-undef',
 	'-Wno-sign-conversion',
@@ -72,8 +71,6 @@ if force_32_bit == true
 	builtins_target_compiler_args += ['-m32']
 	builtins_native_compiler_args += ['-m32']
 endif
-
-#TODO: if armhf is ever supported, define: COMPILER_RT_ARMHF_TARGET
 
 ###################
 # Adjust Warnings #
@@ -407,7 +404,6 @@ atomic_files = files(
 	'compiler-rt/lib/builtins/atomic.c'
 )
 
-# TODO: add if apple
 apple_atomic_files = files(
 	'compiler-rt/lib/builtins/atomic_flag_clear.c',
 	'compiler-rt/lib/builtins/atomic_flag_clear_explicit.c',
@@ -436,9 +432,18 @@ compiler_rt_native_files = [
 if meson.is_cross_build() == true
 	# Build target for baremetal, exclude nonbaremetal files
 	compiler_rt_native_files += nonbaremetal_files
+
+	if build_machine.system() == 'darwin'
+		compiler_rt_native_files += apple_atomic_files
+	endif
 else
 	compiler_rt_native_files += nonbaremetal_files
 	compiler_rt_target_files += nonbaremetal_files
+
+	if host_machine.system() == 'darwin'
+		compiler_rt_native_files += apple_atomic_files
+		compiler_rt_target_files += apple_atomic_files
+	endif
 endif
 
 if not skip_atomic_builtins
