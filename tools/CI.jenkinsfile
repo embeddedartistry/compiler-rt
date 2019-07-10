@@ -81,6 +81,7 @@ pipeline
         enabledForFailure: true,
         healthy: 5,
         unhealthy: 10,
+        referenceJobName: 'ea-nightly/compiler-rt/master',
         qualityGates: [
           // 1 new issue: unstable
           [threshold: 1, type: 'DELTA', unstable: true],
