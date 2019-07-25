@@ -45,8 +45,6 @@ builtins_compiler_args = [
 	'-Wno-undef',
 	'-Wno-sign-conversion',
 	'-Wno-double-promotion',
-	'-Wno-shift-sign-overflow',
-	'-Wno-shorten-64-to-32',
 	'-Wno-float-equal',
 	'-Wno-float-conversion',
 	'-Wno-conversion',
@@ -54,9 +52,6 @@ builtins_compiler_args = [
 	'-Wno-unused-parameter',
 	'-Wno-format-nonliteral',
 	'-Wno-unused-macros',
-	'-Wno-unreachable-code-break',
-	'-Wno-conditional-uninitialized',
-	'-Wno-missing-variable-declarations',
 ]
 
 builtins_target_compiler_args = [
@@ -75,6 +70,54 @@ endif
 ###################
 # Adjust Warnings #
 ###################
+
+if target_compiler.has_argument('-Wno-builtin-declaration-mismatch')
+	builtins_target_compiler_args += '-Wno-builtin-declaration-mismatch'
+endif
+
+if native_compiler.has_argument('-Wno-builtin-declaration-mismatch')
+	builtins_native_compiler_args += '-Wno-builtin-declaration-mismatch'
+endif
+
+if target_compiler.has_argument('-Wno-shift-sign-overflow')
+	builtins_target_compiler_args += '-Wno-shift-sign-overflow'
+endif
+
+if native_compiler.has_argument('-Wno-shift-sign-overflow')
+	builtins_native_compiler_args += '-Wno-shift-sign-overflow'
+endif
+
+if target_compiler.has_argument('-Wno-shorten-64-to-32')
+	builtins_target_compiler_args += '-Wno-shorten-64-to-32'
+endif
+
+if native_compiler.has_argument('-Wno-shorten-64-to-32')
+	builtins_native_compiler_args += '-Wno-shorten-64-to-32'
+endif
+
+if target_compiler.has_argument('-Wno-unreachable-code-break')
+	builtins_target_compiler_args += '-Wno-unreachable-code-break'
+endif
+
+if native_compiler.has_argument('-Wno-unreachable-code-break')
+	builtins_native_compiler_args += '-Wno-unreachable-code-break'
+endif
+
+if target_compiler.has_argument('-Wno-conditional-uninitialized')
+	builtins_target_compiler_args += '-Wno-conditional-uninitialized'
+endif
+
+if native_compiler.has_argument('-Wno-conditional-uninitialized')
+	builtins_native_compiler_args += '-Wno-conditional-uninitialized'
+endif
+
+if target_compiler.has_argument('-Wno-missing-variable-declarations')
+	builtins_target_compiler_args += '-Wno-missing-variable-declarations'
+endif
+
+if native_compiler.has_argument('-Wno-missing-variable-declarations')
+	builtins_native_compiler_args += '-Wno-missing-variable-declarations'
+endif
 
 if target_compiler.has_argument('-Wno-reserved-id-macro')
 	builtins_target_compiler_args += '-Wno-reserved-id-macro'
