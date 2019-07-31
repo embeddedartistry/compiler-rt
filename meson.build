@@ -221,7 +221,8 @@ generic_sources = files(
 	'compiler-rt/lib/builtins/negvdi2.c',
 	'compiler-rt/lib/builtins/negvsi2.c',
 	'compiler-rt/lib/builtins/negvti2.c',
-	'compiler-rt/lib/builtins/os_version_check.c',
+	# This file is used by Obj-C and won't build without clang
+	#'compiler-rt/lib/builtins/os_version_check.c',
 	'compiler-rt/lib/builtins/paritydi2.c',
 	'compiler-rt/lib/builtins/paritysi2.c',
 	'compiler-rt/lib/builtins/parityti2.c',
