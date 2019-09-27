@@ -264,6 +264,7 @@ generic_nonarm_sources = files(
 	'compiler-rt/lib/builtins/udivmodsi4.c',
 	'compiler-rt/lib/builtins/udivsi3.c',
 	'compiler-rt/lib/builtins/umodsi3.c',
+	'compiler-rt/lib/builtins/fp_mode.c',
 )
 
 generic_nonx86_64_sources = files(
@@ -498,7 +499,8 @@ endif
 if target_architecture == 'arm'
 	compiler_rt_target_files += [
 		arm_file_group,
-		generic_nonx86_64_sources
+		generic_nonx86_64_sources,
+		files('compiler-rt/lib/builtins/arm/fp_mode.c'),
 	]
 
 	arm_fp_setting = target_compiler.get_define('__ARM_FP')
@@ -519,7 +521,8 @@ elif target_architecture == 'aarch64' or target_architecture == 'arm64'
 	compiler_rt_target_files += [
 		generic_tf_sources,
 		generic_nonx86_64_sources,
-		generic_nonarm_sources
+		generic_nonarm_sources,
+		files('compiler-rt/lib/builtins/aarch64/fp_mode.c'),
 	]
 elif target_architecture == 'x86'
 	compiler_rt_target_files += [
