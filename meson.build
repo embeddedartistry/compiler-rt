@@ -32,7 +32,7 @@ skip_atomic_builtins = get_option('compiler-rt-exclude-atomic-builtins')
 
 subdir('build/architecture')
 
-message('Building compiler-rt for target architecture: ' + host_architecture)
+message('Building compiler-rt for target architecture: ' + target_architecture)
 message('Building compiler-rt for native architecture: ' + native_architecture)
 
 builtins_compiler_args = [
@@ -500,30 +500,22 @@ if not skip_atomic_builtins
 	compiler_rt_native_files += atomic_files
 endif
 
-if host_architecture == 'arm'
+if target_architecture == 'arm'
 	compiler_rt_target_files += [
 		arm_file_group,
 		generic_nonx86_64_sources
 	]
 
 	arm_fp_setting = target_compiler.get_define('__ARM_FP')
-
-	# RESUME HERE: We need to ensure the arm_vfp2_common_files isn't added
-	# Also update logic in native block below
-	# under the following conditions
-	#      # For ARM archs, exclude any VFP builtins if VFP is not supported
-    #  if (${arch} MATCHES "^(arm|armhf|armv7|armv7s|armv7k|armv7m|armv7em)$")
-    #    string(REPLACE ";" " " _TARGET_${arch}_CFLAGS "${TARGET_${arch}_CFLAGS}")
-    #    check_compile_definition(__VFP_FP__ "${CMAKE_C_FLAGS} ${_TARGET_${arch}_CFLAGS}" COMPILER_RT_HAS_${arch}_VFP)
-    #    if(NOT COMPILER_RT_HAS_${arch}_VFP)
-    #      list(REMOVE_ITEM ${arch}_SOURCES ${arm_Thumb1_VFPv2_SOURCES} ${arm_Thumb1_SjLj_EH_SOURCES})
-    #    endif()
-    #  endif()
+	arm_version = target_compiler.get_define('__ARM_ARCH')
 
 	# Single precision (aka 32 bit support) is true when bit 2 is set (0bx1xx)
 	if arm_fp_setting == '4' or arm_fp_setting == '12' or arm_fp_setting == '14'
 		message('Enabling single-precision ARM VFP Builtins')
-		#compiler_rt_target_files += arm_vfp2_common_files
+		if(arm_version.to_int() < 7)
+			# VFPv2 files are only needed for ARMv5 and ARMv6
+			compiler_rt_target_files += arm_vfp2_common_files
+		endif
 	endif
 
 	# Double precision (aka 64 bit support) is true when bit 3 is set (0b1xxx)
@@ -532,26 +524,26 @@ if host_architecture == 'arm'
 		compiler_rt_target_files + arm_vfp_double_precision_files
 	endif
 
-elif host_architecture == 'aarch64' or host_architecture == 'arm64'
+elif target_architecture == 'aarch64' or target_architecture == 'arm64'
 	compiler_rt_target_files += [
 		generic_tf_sources,
 		generic_nonx86_64_sources,
 		generic_nonarm_sources
 	]
-elif host_architecture == 'x86'
+elif target_architecture == 'x86'
 	compiler_rt_target_files += [
 		x86_files,
 		generic_nonx86_64_sources,
 		generic_nonarm_sources
 	]
-elif host_architecture == 'x86_64'
+elif target_architecture == 'x86_64'
 	compiler_rt_target_files += [
 		x86_files,
 		x86_64_files,
 		generic_nonarm_sources
 	]
 else
-	assert(0, 'Unsupported architecture: ' + host_architecture)
+	assert(0, 'Unsupported architecture: ' + target_architecture)
 endif
 
 if native_architecture == 'arm'
@@ -560,12 +552,15 @@ if native_architecture == 'arm'
 		generic_nonx86_64_sources
 	]
 
-	arm_fp_setting = native_compiler.get_define('__ARM_FP', name: 'vfp enabled')
+	arm_fp_setting = native_compiler.get_define('__ARM_FP')
+	arm_version = native_compiler.get_define('__ARM_ARCH')
 
 	# Single precision (aka 32 bit support) is true when bit 2 is set (0bx1xx)
 	if arm_fp_setting == '4' or arm_fp_setting == '12' or arm_fp_setting == '14'
 		message('Enabling single-precision ARM VFP Builtins')
-		compiler_rt_native_files += arm_vfp2_common_files
+		if(arm_version.to_int() < 7)
+			compiler_rt_native_files += arm_vfp2_common_files
+		endif
 	endif
 
 	# Double precision (aka 64 bit support) is true when bit 3 is set (0b1xxx)
