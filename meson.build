@@ -482,14 +482,14 @@ if meson.is_cross_build() == true
 	# Build target for baremetal, exclude nonbaremetal files
 	compiler_rt_native_files += nonbaremetal_files
 
-	if build_machine.system() == 'darwin'
+	if build_machine.system() == 'darwin' and target_compiler.get_id() != 'gcc'
 		compiler_rt_native_files += apple_atomic_files
 	endif
 else
 	compiler_rt_native_files += nonbaremetal_files
 	compiler_rt_target_files += nonbaremetal_files
 
-	if host_machine.system() == 'darwin'
+	if host_machine.system() == 'darwin' and target_compiler.get_id() != 'gcc'
 		compiler_rt_native_files += apple_atomic_files
 		compiler_rt_target_files += apple_atomic_files
 	endif
