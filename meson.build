@@ -30,7 +30,8 @@ skip_atomic_builtins = get_option('compiler-rt-exclude-atomic-builtins')
 # Initialize Compiler Flags #
 #############################
 
-subdir('meson/architecture')
+native_architecture = build_machine.cpu_family()
+target_architecture = host_machine.cpu_family()
 
 message('Building compiler-rt for target architecture: ' + target_architecture)
 message('Building compiler-rt for native architecture: ' + native_architecture)
