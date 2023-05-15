@@ -2,5 +2,5 @@
 	path = compiler-rt
 	url = git@github.com:llvm-mirror/compiler-rt.git
 [submodule "build"]
-	path = build
+	path = meson
 	url = https://github.com/embeddedartistry/meson-buildsystem
