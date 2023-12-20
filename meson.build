@@ -601,6 +601,7 @@ compiler_rt_builtins = static_library('compiler_rt',
 	c_args: builtins_target_compiler_args,
 	cpp_args: builtins_target_compiler_args,
 	pic: true,
+	build_by_default: meson.is_subproject() == false
 )
 
 compiler_rt_native_builtins = static_library('compiler_rt_native',
@@ -608,7 +609,8 @@ compiler_rt_native_builtins = static_library('compiler_rt_native',
 	c_args: builtins_native_compiler_args,
 	cpp_args: builtins_native_compiler_args,
 	pic: true,
-	native: true
+	native: true,
+	build_by_default: meson.is_subproject() == false
 )
 
 compiler_rt_builtins_dep = declare_dependency(
